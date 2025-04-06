@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CountriesModule } from './countries/countries.module';
+import { PlacesModule } from './places/places.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { CountriesModule } from './countries/countries.module';
         migrationsRun: true,
       }),
     }),
-    CountriesModule
+    CountriesModule,
+    PlacesModule,
   ],
   controllers: [],
   providers: [],

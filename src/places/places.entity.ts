@@ -21,6 +21,6 @@ export class Place {
     @CreateDateColumn()
     createdAt: Date;
 
-    @UpdateDateColumn()
-    updateAt: Date;
+    @UpdateDateColumn( { name: 'updatedAt' })
+    updatedAt: Date;
 }
