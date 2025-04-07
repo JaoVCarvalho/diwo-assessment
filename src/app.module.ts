@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CountriesModule } from './countries/countries.module';
 import { PlacesModule } from './places/places.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -19,8 +20,8 @@ import { PlacesModule } from './places/places.module';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_DATABASE'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        migrations: [__dirname + '/database/migrations/**/*{.ts,.js}'],
+        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+        migrations: [join(__dirname, 'database', 'migrations', '**/*.{ts,js}')],
         synchronize: false,
         migrationsRun: true,
       }),

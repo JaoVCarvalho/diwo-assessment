@@ -23,7 +23,7 @@ export class PlacesService {
     async findOne(id: number): Promise<Place> {
         const place = await this.placesRepository.findOne({ where: { id } });
         if (!place) {
-            throw new NotFoundException(`Place with id ${id} not found`);
+            throw new NotFoundException(`Place with id=${id} not found`);
         }
         return place;
     }
@@ -32,7 +32,7 @@ export class PlacesService {
         // Verifica se o país existe antes de criar o lugar
         const country = await this.countriesRepository.findOne({ where: { id: createPlaceDto.countryId } });
         if (!country) {
-            throw new NotFoundException(`Country with id ${createPlaceDto.countryId} not found`);
+            throw new NotFoundException(`Country with id=${createPlaceDto.countryId} not found`);
         }
         
         // Verifica duplicidade: mesmo local para o mesmo país
@@ -50,7 +50,7 @@ export class PlacesService {
             meta: new Date(`${createPlaceDto.meta}T12:00:00Z`),
             country: country,
         });
-
+        
         return await this.placesRepository.save(place);
     }
 
@@ -82,7 +82,7 @@ export class PlacesService {
         const result = await this.placesRepository.delete(id);
 
         if (result.affected === 0){
-            throw new NotFoundException(`Place with id ${id} not found`);
+            throw new NotFoundException(`Place with id=${id} not found`);
         }
     }
 }

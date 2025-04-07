@@ -9,4 +9,4 @@ import { CountriesService } from "./countries.service";
     controllers: [CountriesController],
     providers: [CountriesService]    
 })
-export class CountriesModule {};
+export class CountriesModule {}

@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Res } from "@nestjs/common";
+import { Response } from 'express';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { CountriesService } from './countries.service';
 import { Country } from "./countries.entity";
@@ -8,9 +9,9 @@ import { UpdateCountryDto } from "./dto/update-country.dto";
 export class CountriesController{
     constructor(private readonly countriesService: CountriesService) {}
 
-    @Get('/hello')
-    async hello(): Promise<string> {
-        return 'Welcome to the Countries Controller!'; 
+    @Get('ping')
+    ping(): string {
+        return 'pong';
     }
 
     @Get()
@@ -24,9 +25,27 @@ export class CountriesController{
     }
     
     @Post('many')
-    async createMany(@Body() createCountryDtos: CreateCountryDto[]): Promise<Country[]> {
-        return await this.countriesService.createMany(createCountryDtos);
-    }
+    async createMany(@Body() createCountryDto: CreateCountryDto[],@Res() res: Response) {
+        const result = await this.countriesService.createMany(createCountryDto);
+      
+        if (result.skipped.length === 0) {
+          return res.status(201).json({
+            message: 'All countries were created successfully.',
+            created: result.created
+          });
+        } else if (result.created.length === 0) {
+          return res.status(409).json({
+            message: 'No country was created. All already exist.',
+            skipped: result.skipped
+          });
+        } else {
+          return res.status(207).json({
+            message: 'Some countries were created successfully.',
+            created: result.created,
+            skipped: result.skipped
+          });
+        }
+      }
 
     @Put(':id')
     async update(@Param('id', ParseIntPipe) id: number, @Body() updateCountryDto: UpdateCountryDto): Promise<Country> {
@@ -35,6 +54,6 @@ export class CountriesController{
 
     @Delete(':id')
     async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
-        return await this.countriesService.delete(id);
+        return await this.countriesService.remove(id);
     }   
 }
