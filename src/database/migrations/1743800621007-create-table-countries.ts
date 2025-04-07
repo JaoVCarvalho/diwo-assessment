@@ -20,7 +20,7 @@ export class CreateTableCountries1743800621007 implements MigrationInterface {
               isNullable: false,
             },
             {
-              name: "flagUrl",
+              name: "flag_url",
               type: "varchar",
               isNullable: false,
             },

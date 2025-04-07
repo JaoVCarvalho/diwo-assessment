@@ -24,17 +24,17 @@ export class CreateTablePlaces1743801198620 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: "countryId",
+            name: "country_id",
             type: "int",
             isNullable: false,
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP",
             onUpdate: "CURRENT_TIMESTAMP",
@@ -42,8 +42,8 @@ export class CreateTablePlaces1743801198620 implements MigrationInterface {
         ],
         uniques: [
           {
-            name: "UQ_places_countryId_local",
-            columnNames: ["countryId", "local"],
+            name: "UQ_places_country_id_local",
+            columnNames: ["country_id", "local"],
           },
         ],
       })
@@ -52,7 +52,7 @@ export class CreateTablePlaces1743801198620 implements MigrationInterface {
     await queryRunner.createForeignKey(
       "places",
       new TableForeignKey({
-        columnNames: ["countryId"],
+        columnNames: ["country_id"],
         referencedTableName: "countries",
         referencedColumnNames: ["id"],
         onDelete: "CASCADE",
@@ -63,7 +63,7 @@ export class CreateTablePlaces1743801198620 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<void> {
     const table = await queryRunner.getTable("places");
     if(table){
-        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("countryId") !== -1);
+        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("country_id") !== -1);
         if (foreignKey) {
             await queryRunner.dropForeignKey("places", foreignKey);
         }

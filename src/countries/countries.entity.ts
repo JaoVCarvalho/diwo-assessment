@@ -5,12 +5,12 @@ import { Place } from '../places/places.entity'
 export class Country{
 
     @PrimaryGeneratedColumn()
-    id: Number;
+    id: number;
 
-    @Column({ unique: true })
+    @Column({ unique: true, nullable: false })
     name: string;
 
-    @Column()
+    @Column({ name:'flag_url', nullable: false })
     flagUrl: string;
 
     @OneToMany(()=> Place, (place) => place.country)
