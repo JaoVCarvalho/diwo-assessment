@@ -1,98 +1,135 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Diwo Backend Assessment - API de Lugares para Conhecer
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API desenvolvida em NestJS + TypeORM + MySQL para o desafio de backend da Diwo.
+Permite o gerenciamento de **países** e **lugares** a serem visitados, com suporte a operações CRUD e organização por data prevista (meta).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🔹Descrição Geral
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A aplicação oferece duas entidades principais:
 
-## Project setup
+- **Countries**: tabela de países com nome e URL da bandeira.
+- **Places**: locais que o usuário deseja conhecer, com associação ao país, meta (data) e CRUD completo.
 
-```bash
-$ npm install
-```
+Todas as rotas estão documentadas e uma coleção Postman exportada está disponível na pasta `postman/` na raiz do projeto, pronta para importação.
 
-## Compile and run the project
+---
+
+## 🔹 Observações Técnicas
+
+- Foi criada uma entidade `Country` separada para garantir **normalização** e evitar dados duplicados, além de permitir a rota `GET /countries` para população do select no frontend (ordenada alfabeticamente).
+
+- A coluna `meta` em `Place` utiliza o tipo `date` ao invés de colunas separadas para mês e ano, garantindo compatibilidade com operações de ordenação e permitindo futura evolução (ex.: suporte a dia). O dia é fixado em `01` pelo backend e pode ser tratado no frontend.
+
+- Embora não solicitado, foi implementado o **CRUD completo de países** para facilitar testes, populamento em massa (`POST /countries/many`) e manutenção da base.
+
+---
+
+## 🔹 Como Rodar o Projeto (Docker Compose)
+
+O projeto utiliza Docker Compose para subir a API NestJS e o banco MySQL:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker-compose up --build
 ```
 
-## Run tests
+> Esse comando inicia dois containers:
+> - **mysql-nest**: banco MySQL com o banco `places_db`
+> - **nest-api**: aplicação NestJS na porta `3000`
+
+Para acessar o MySQL manualmente:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker exec -it mysql-nest mysql -uroot -p
 ```
 
-## Deployment
+A senha do banco está definida no arquivo `.env` na raiz do projeto.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 🔹 Rodar Localmente (sem Docker)
+
+Caso prefira rodar sem Docker:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm install
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+> Nesse caso, atualize o `.env` com as credenciais e host do **MySQL local**:
 
-## Resources
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=seu_usuario_mysql
+DB_PASSWORD=sua_senha_mysql
+DB_DATABASE=places_db
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 🔹 Testes Automatizados
 
-## Support
+O projeto conta com testes unitários focados nas **services**, onde está concentrada a lógica de negócio.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Para rodar os testes:
+```bash
+npm run test
+```
 
-## Stay in touch
+Para visualizar a cobertura de testes:
+```bash
+npm run test:cov
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+> A cobertura mostra que atingimos **100% de cobertura nas services**, garantindo a confiabilidade da lógica central da aplicação.
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 🔹Tecnologias Utilizadas
+
+- [NestJS](https://nestjs.com/) (Node.js Framework)
+- [TypeORM](https://typeorm.io/) (ORM)
+- [MySQL 8](https://www.mysql.com/)
+- [Docker](https://www.docker.com/)
+- [Jest](https://jestjs.io/) (Testes)
+
+---
+
+## 🔹 Estrutura de Pastas
+
+```bash
+src/
+  countries/       # Módulo de países (CRUD completo)
+  places/          # Módulo de lugares
+  database/        # Migrations (se aplicável)
+postman/           # Coleção exportada para teste no Postman
+.env               # Configurações sensíveis
+Dockerfile         # Build da API
+```
+
+---
+
+## 🔹 Endpoints Principais
+
+### Countries
+- `GET /countries` → Lista todos os países (ordenados por nome)
+- `POST /countries` → Cria um país
+- `POST /countries/many` → Cria vários países de uma vez
+- `PUT /countries/:id` → Atualiza um país
+- `DELETE /countries/:id` → Remove um país
+
+### Places
+- `GET /places` → Lista todos os lugares (ordenados por data `meta` ASC)
+- `POST /places` → Cria um lugar
+- `PUT /places/:id` → Atualiza local e/ou meta
+- `DELETE /places/:id` → Remove um lugar
+
+---
+
+## 🔹 Considerações Finais
+
+O projeto foi desenvolvido visando clareza, manutenção e organização do código, com foco em boas práticas backend e cobertura de testes. 
+
+Feedbacks são muito bem-vindos!

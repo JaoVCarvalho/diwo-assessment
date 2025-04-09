@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "4b764f9b-46b0-452a-b069-157a7ccecb9b",
+		"name": "diwo-assessment",
+		"description": "### API NestJS para o desafio técnico da Diwo.\n\nA aplicação permite o cadastro, listagem, atualização e remoção de países e lugares a serem visitados.  \nUtiliza NestJS com TypeORM, banco MySQL e está containerizada via Docker.\n\n> Rotas organizadas por entidade (`/countries`, `/places`)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43572142",
+		"_collection_link": "https://lively-flare-7209017.postman.co/workspace/Jo%C3%A3o-Victor-Carvalho's-Workspac~6a0cf940-5535-47eb-89d3-1ae55b4dedaf/collection/43572142-4b764f9b-46b0-452a-b069-157a7ccecb9b?action=share&source=collection_link&creator=43572142"
+	},
+	"item": [
+		{
+			"name": "countries/ping",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/countries/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countries",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Brasil\",\r\n    \"flagUrl\": \"https://flagcdn.com/w80/br.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/countries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countries/many",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  { \"name\": \"França\", \"flagUrl\": \"https://flagcdn.com/w80/fr.png\" },\r\n  { \"name\": \"México\", \"flagUrl\": \"https://flagcdn.com/w80mx.png\" },\r\n  { \"name\": \"Bolívia\", \"flagUrl\": \"https://flagcdn.com/w80/bo.png\" },\r\n  { \"name\": \"Estados Unidos\", \"flagUrl\": \"https://flagcdn.com/w80/us.png\" },\r\n  { \"name\": \"Itália\", \"flagUrl\": \"https://flagcdn.com/w80/it.png\" },\r\n  { \"name\": \"Emirados Árabes Unidos\", \"flagUrl\": \"https://flagcdn.com/w80/ae.png\" },\r\n  { \"name\": \"Alemanha\", \"flagUrl\": \"https://flagcdn.com/w80/de.png\" },\r\n  { \"name\": \"Japão\", \"flagUrl\": \"https://flagcdn.com/w80/jp.png\" },\r\n  { \"name\": \"Canadá\", \"flagUrl\": \"https://flagcdn.com/w80/ca.png\" }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/countries/many",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries",
+						"many"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countries",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/countries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countries",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Brasil\",\r\n    \"flagUrl\": \"https://flagcdn.com/w80/br.png\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/countries/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countries",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/countries/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "places/ping",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/places/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"places",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "places",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// Lista de exemplos de lugares vinculados aos países padrão cadastrados na aplicação pelas rotas POST /countries e POST /countries/many.\r\n// Para testar, descomente cada objeto individualmente e envie pela rota POST /places.\r\n\r\n{\r\n  \"local\": \"Florianópolis\",\r\n  \"meta\": \"2025-01-01\",\r\n  \"countryId\": 1 // Brasil\r\n}\r\n\r\n// {\r\n//   \"local\": \"Paris\",\r\n//   \"meta\": \"2025-06-01\",\r\n//   \"countryId\": 2 // França\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Cidade do México\",\r\n//   \"meta\": \"2025-07-01\",\r\n//   \"countryId\": 3 // México\r\n// }\r\n\r\n// {\r\n//   \"local\": \"La Paz\",\r\n//   \"meta\": \"2025-08-01\",\r\n//   \"countryId\": 4 // Bolívia\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Nova York\",\r\n//   \"meta\": \"2025-10-01\",\r\n//   \"countryId\": 5 // Estados Unidos\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Roma\",\r\n//   \"meta\": \"2025-02-01\",\r\n//   \"countryId\": 6 // Itália\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Dubai\",\r\n//   \"meta\": \"2025-04-01\",\r\n//   \"countryId\": 7 // Emirados Árabes Unidos\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Berlim\",\r\n//   \"meta\": \"2025-03-01\",\r\n//   \"countryId\": 8 // Alemanha\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Tóquio\",\r\n//   \"meta\": \"2026-09-01\",\r\n//   \"countryId\": 9 // Japão\r\n// }\r\n\r\n// {\r\n//   \"local\": \"Toronto\",\r\n//   \"meta\": \"2026-02-01\",\r\n//   \"countryId\": 10 // Canadá\r\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/places",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"places"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "places",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/places",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"places"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "places",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"local\": \"Bahia\",\r\n    \"meta\": \"2027-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/places/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"places",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "places",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/places/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"places",
+						"9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
