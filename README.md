@@ -24,6 +24,8 @@ Todas as rotas estão documentadas e uma coleção Postman exportada está dispo
 
 - Embora não solicitado, foi implementado o **CRUD completo de países** para facilitar testes, populamento em massa (`POST /countries/many`) e manutenção da base.
 
+- O arquivo `.env` foi incluído no repositório propositalmente para facilitar a execução local da aplicação durante a avaliação do desafio técnico. Ele contém apenas configurações genéricas voltadas ao ambiente de desenvolvimento e não expõe dados sensíveis reais.
+
 ---
 
 ## 🔹 Como Rodar o Projeto (Docker Compose)
